@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -78,11 +78,44 @@ const products = [
 const categories = ['Все категории', 'Направляющие элементы', 'Толкатели', 'Колонны', 'Опорные элементы', 'Крепеж', 'Пружины'];
 const materials = ['Все материалы', 'Сталь закаленная', 'Сталь инструментальная', 'Бронза', 'Сталь нержавеющая', 'Пружинная сталь'];
 
+const slides = [
+  {
+    id: 1,
+    title: 'Запчасти для пресс-форм',
+    subtitle: 'Профессиональные стандартные элементы. Высокая точность и долговечность',
+    bg: 'linear-gradient(135deg, #1A1F2C 0%, #0EA5E9 100%)'
+  },
+  {
+    id: 2,
+    title: 'Всегда в наличии',
+    subtitle: 'Более 5000 наименований на складе в Москве. Отправка в день заказа',
+    bg: 'linear-gradient(135deg, #0EA5E9 0%, #1A1F2C 100%)'
+  },
+  {
+    id: 3,
+    title: 'Гарантия качества',
+    subtitle: 'Все детали проходят входной контроль. Сертификаты ISO 9001:2015',
+    bg: 'linear-gradient(135deg, #1A1F2C 0%, #2563EB 100%)'
+  }
+];
+
 export default function Index() {
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCategory, setSelectedCategory] = useState('Все категории');
   const [selectedMaterial, setSelectedMaterial] = useState('Все материалы');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   const filteredProducts = products.filter(product => {
     const matchesCategory = selectedCategory === 'Все категории' || product.category === selectedCategory;
@@ -119,25 +152,65 @@ export default function Index() {
         </div>
       </header>
 
+      {activeTab === 'home' && (
+        <div className="relative w-full h-[600px] overflow-hidden mb-8">
+          {slides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ background: slide.bg }}
+            >
+              <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
+                <h2 className="text-6xl font-bold mb-6 animate-fade-in">{slide.title}</h2>
+                <p className="text-2xl mb-8 max-w-3xl opacity-90">{slide.subtitle}</p>
+                <div className="flex gap-4">
+                  <Button size="lg" variant="secondary" onClick={() => setActiveTab('catalog')}>
+                    <Icon name="Search" size={20} className="mr-2" />
+                    Открыть каталог
+                  </Button>
+                  <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white">
+                    <Icon name="FileText" size={20} className="mr-2" />
+                    Скачать прайс
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+          
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  index === currentSlide
+                    ? 'bg-white w-8'
+                    : 'bg-white/50 hover:bg-white/75'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => goToSlide((currentSlide - 1 + slides.length) % slides.length)}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all z-10"
+          >
+            <Icon name="ChevronLeft" size={24} />
+          </button>
+          <button
+            onClick={() => goToSlide((currentSlide + 1) % slides.length)}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all z-10"
+          >
+            <Icon name="ChevronRight" size={24} />
+          </button>
+        </div>
+      )}
+
       <main className="container mx-auto px-4 py-8">
         {activeTab === 'home' && (
           <>
-            <section className="py-16 text-center animate-fade-in">
-              <h2 className="text-5xl font-bold mb-4">Запчасти для пресс-форм</h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Профессиональные стандартные элементы для пресс-форм. Высокая точность, долговечность, всегда в наличии.
-              </p>
-              <div className="flex gap-4 justify-center">
-                <Button size="lg" onClick={() => setActiveTab('catalog')}>
-                  <Icon name="Search" size={20} className="mr-2" />
-                  Открыть каталог
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Icon name="FileText" size={20} className="mr-2" />
-                  Скачать прайс
-                </Button>
-              </div>
-            </section>
 
             <section className="grid md:grid-cols-3 gap-6 py-12">
               <Card className="hover:shadow-lg transition-shadow">
