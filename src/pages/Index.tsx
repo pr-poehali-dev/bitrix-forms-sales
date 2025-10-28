@@ -75,7 +75,98 @@ const products = [
   }
 ];
 
-const categories = ['Все категории', 'Направляющие элементы', 'Толкатели', 'Колонны', 'Опорные элементы', 'Крепеж', 'Пружины'];
+const hydraulicCylinders = [
+  {
+    id: 'v215cr-25-12',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 25,
+    rod: 12,
+    stroke: 50,
+    pressure: 215,
+    price: '12 500 ₽',
+    stock: 'В наличии'
+  },
+  {
+    id: 'v215cr-25-12-100',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 25,
+    rod: 12,
+    stroke: 100,
+    pressure: 215,
+    price: '13 800 ₽',
+    stock: 'В наличии'
+  },
+  {
+    id: 'v215cr-32-16-50',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 32,
+    rod: 16,
+    stroke: 50,
+    pressure: 215,
+    price: '14 200 ₽',
+    stock: 'В наличии'
+  },
+  {
+    id: 'v215cr-32-16-100',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 32,
+    rod: 16,
+    stroke: 100,
+    pressure: 215,
+    price: '15 900 ₽',
+    stock: 'Под заказ'
+  },
+  {
+    id: 'v215cr-40-20-50',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 40,
+    rod: 20,
+    stroke: 50,
+    pressure: 215,
+    price: '16 500 ₽',
+    stock: 'В наличии'
+  },
+  {
+    id: 'v215cr-40-20-100',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 40,
+    rod: 20,
+    stroke: 100,
+    pressure: 215,
+    price: '18 300 ₽',
+    stock: 'В наличии'
+  },
+  {
+    id: 'v215cr-50-25-100',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 50,
+    rod: 25,
+    stroke: 100,
+    pressure: 215,
+    price: '21 400 ₽',
+    stock: 'В наличии'
+  },
+  {
+    id: 'v215cr-63-32-100',
+    name: 'Гидроцилиндр VEGA V215CR',
+    series: 'V215CR',
+    bore: 63,
+    rod: 32,
+    stroke: 100,
+    pressure: 215,
+    price: '26 800 ₽',
+    stock: 'Под заказ'
+  }
+];
+
+const categories = ['Все категории', 'Направляющие элементы', 'Толкатели', 'Колонны', 'Опорные элементы', 'Крепеж', 'Пружины', 'Гидроцилиндры'];
 const materials = ['Все материалы', 'Сталь закаленная', 'Сталь инструментальная', 'Бронза', 'Сталь нержавеющая', 'Пружинная сталь'];
 
 const slides = [
@@ -105,6 +196,9 @@ export default function Index() {
   const [selectedMaterial, setSelectedMaterial] = useState('Все материалы');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedBore, setSelectedBore] = useState<number | null>(null);
+  const [selectedRod, setSelectedRod] = useState<number | null>(null);
+  const [selectedStroke, setSelectedStroke] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -239,7 +333,7 @@ export default function Index() {
             <section className="py-12">
               <h3 className="text-3xl font-bold mb-8 text-center">Популярные категории</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {['Направляющие элементы', 'Толкатели', 'Колонны', 'Опорные элементы', 'Крепеж', 'Пружины', 'Датчики', 'Системы охлаждения'].map((cat) => (
+                {['Направляющие элементы', 'Толкатели', 'Колонны', 'Опорные элементы', 'Крепеж', 'Пружины', 'Гидроцилиндры', 'Датчики'].map((cat) => (
                   <Card key={cat} className="hover:border-accent transition-colors cursor-pointer" onClick={() => { setSelectedCategory(cat); setActiveTab('catalog'); }}>
                     <CardHeader className="text-center">
                       <Icon name="Box" size={32} className="mx-auto mb-2 text-accent" />
@@ -252,7 +346,7 @@ export default function Index() {
           </>
         )}
 
-        {activeTab === 'catalog' && (
+        {activeTab === 'catalog' && selectedCategory !== 'Гидроцилиндры' && (
           <div className="animate-fade-in">
             <div className="mb-8">
               <h2 className="text-4xl font-bold mb-4">Каталог продукции</h2>
@@ -347,6 +441,212 @@ export default function Index() {
                 <p className="text-sm text-muted-foreground mt-2">Попробуйте изменить параметры поиска</p>
               </div>
             )}
+          </div>
+        )}
+
+        {activeTab === 'catalog' && selectedCategory === 'Гидроцилиндры' && (
+          <div className="animate-fade-in">
+            <div className="mb-8">
+              <h2 className="text-4xl font-bold mb-4">Гидроцилиндры VEGA V215CR</h2>
+              <p className="text-muted-foreground">Максимальное рабочее давление до 215 бар. Внутренний диаметр от 25 до 200 мм</p>
+            </div>
+
+            <div className="bg-card rounded-lg border p-6 mb-8">
+              <h3 className="text-lg font-bold mb-4">Выберите параметры</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium mb-3 block">Диаметр поршня (мм)</label>
+                  <div className="flex flex-wrap gap-2">
+                    {[25, 32, 40, 50, 63, 80, 100].map(bore => {
+                      const available = hydraulicCylinders.some(c => c.bore === bore);
+                      return (
+                        <Button
+                          key={bore}
+                          variant={selectedBore === bore ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setSelectedBore(selectedBore === bore ? null : bore)}
+                          disabled={!available}
+                          className={!available ? 'opacity-50' : ''}
+                        >
+                          Ø{bore}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-3 block">Диаметр штока (мм)</label>
+                  <div className="flex flex-wrap gap-2">
+                    {[12, 16, 20, 25, 32, 40, 50].map(rod => {
+                      const available = hydraulicCylinders.some(c => 
+                        c.rod === rod && (!selectedBore || c.bore === selectedBore)
+                      );
+                      return (
+                        <Button
+                          key={rod}
+                          variant={selectedRod === rod ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setSelectedRod(selectedRod === rod ? null : rod)}
+                          disabled={!available}
+                          className={!available ? 'opacity-50' : ''}
+                        >
+                          Ø{rod}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-3 block">Ход штока (мм)</label>
+                  <div className="flex flex-wrap gap-2">
+                    {[50, 100, 150, 200, 250, 300].map(stroke => {
+                      const available = hydraulicCylinders.some(c => 
+                        c.stroke === stroke && 
+                        (!selectedBore || c.bore === selectedBore) &&
+                        (!selectedRod || c.rod === selectedRod)
+                      );
+                      return (
+                        <Button
+                          key={stroke}
+                          variant={selectedStroke === stroke ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setSelectedStroke(selectedStroke === stroke ? null : stroke)}
+                          disabled={!available}
+                          className={!available ? 'opacity-50' : ''}
+                        >
+                          {stroke} мм
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {(selectedBore || selectedRod || selectedStroke) && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => {
+                      setSelectedBore(null);
+                      setSelectedRod(null);
+                      setSelectedStroke(null);
+                    }}
+                  >
+                    <Icon name="X" size={16} className="mr-2" />
+                    Сбросить фильтры
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {hydraulicCylinders
+                .filter(cyl => 
+                  (!selectedBore || cyl.bore === selectedBore) &&
+                  (!selectedRod || cyl.rod === selectedRod) &&
+                  (!selectedStroke || cyl.stroke === selectedStroke)
+                )
+                .map((cylinder) => (
+                  <Card key={cylinder.id} className="hover:shadow-lg transition-all">
+                    <CardHeader>
+                      <div className="aspect-square bg-gradient-to-br from-primary to-accent rounded-lg mb-4 flex items-center justify-center">
+                        <Icon name="Cylinder" size={80} className="text-white" fallback="Circle" />
+                      </div>
+                      <div className="flex justify-between items-start mb-2">
+                        <CardTitle className="text-lg">{cylinder.name}</CardTitle>
+                        <Badge variant={cylinder.stock === 'В наличии' ? 'default' : 'secondary'}>
+                          {cylinder.stock}
+                        </Badge>
+                      </div>
+                      <CardDescription className="text-sm">Серия {cylinder.series}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-2 text-sm mb-4">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Диаметр поршня:</span>
+                          <span className="font-medium">Ø{cylinder.bore} мм</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Диаметр штока:</span>
+                          <span className="font-medium">Ø{cylinder.rod} мм</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ход штока:</span>
+                          <span className="font-medium">{cylinder.stroke} мм</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Давление:</span>
+                          <span className="font-medium">{cylinder.pressure} бар</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center pt-4 border-t">
+                        <span className="text-2xl font-bold text-accent">{cylinder.price}</span>
+                        <Button size="sm">
+                          <Icon name="ShoppingCart" size={16} className="mr-2" />
+                          В корзину
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
+
+            {hydraulicCylinders.filter(cyl => 
+              (!selectedBore || cyl.bore === selectedBore) &&
+              (!selectedRod || cyl.rod === selectedRod) &&
+              (!selectedStroke || cyl.stroke === selectedStroke)
+            ).length === 0 && (
+              <div className="text-center py-12">
+                <Icon name="Search" size={64} className="mx-auto mb-4 text-muted-foreground" />
+                <p className="text-xl text-muted-foreground">Гидроцилиндры с выбранными параметрами не найдены</p>
+                <p className="text-sm text-muted-foreground mt-2">Попробуйте изменить параметры поиска</p>
+              </div>
+            )}
+
+            <Card className="mt-8">
+              <CardHeader>
+                <CardTitle>Технические характеристики серии V215CR</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-bold mb-3">Основные параметры</h4>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-start">
+                        <Icon name="Check" size={18} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Максимальное рабочее давление: до 215 бар (3117 PSI)</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Icon name="Check" size={18} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Внутренний диаметр: от 25 до 200 мм</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Icon name="Check" size={18} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Диаметр штока: от 12 до 140 мм</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Icon name="Check" size={18} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Ход: от 20 до 1500 мм</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-3">Температурный режим</h4>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-start">
+                        <Icon name="Check" size={18} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Магнитное исполнение: 80°C (176°F)</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Icon name="Check" size={18} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Немагнитное исполнение: 120°C (248°F)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
 
