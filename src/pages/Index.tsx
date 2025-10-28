@@ -132,7 +132,7 @@ export default function Index() {
             <div className="flex items-center space-x-2">
               <Icon name="Cog" size={32} className="text-accent" />
               <div>
-                <h1 className="text-2xl font-bold text-primary">MoldParts</h1>
+                <h1 className="text-2xl font-bold text-primary">Молдис</h1>
                 <p className="text-xs text-muted-foreground">Запчасти для пресс-форм</p>
               </div>
             </div>
@@ -356,9 +356,9 @@ export default function Index() {
             <Card>
               <CardContent className="p-8 space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">MoldParts — эксперт в области стандартных элементов</h3>
+                  <h3 className="text-2xl font-bold mb-4">Молдис — эксперт в области стандартных элементов</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Компания MoldParts специализируется на поставке высокоточных стандартных элементов для пресс-форм с 2010 года. 
+                    Компания Молдис специализируется на поставке высокоточных стандартных элементов для пресс-форм с 2010 года. 
                     Мы работаем с ведущими производителями промышленного оборудования и инструмента.
                   </p>
                 </div>
@@ -385,7 +385,7 @@ export default function Index() {
                       'Работа только с сертифицированными производителями',
                       'Гарантия соответствия всех параметров техническим требованиям',
                       'Входной контроль качества каждой партии товара',
-                      'Собственный склад площадью 1500 м² в Москве',
+                      'Собственный склад площадью 1500 м² в Санкт-Петербурге',
                       'Техническая поддержка и консультации инженеров',
                       'Гибкая система скидок для корпоративных клиентов'
                     ].map((item, i) => (
@@ -423,7 +423,7 @@ export default function Index() {
                   </div>
                   <div className="border-l-4 border-accent pl-4">
                     <h4 className="font-bold mb-2">Самовывоз</h4>
-                    <p className="text-sm text-muted-foreground">Бесплатно. Москва, Варшавское шоссе, 132. Пн-Пт: 9:00-18:00</p>
+                    <p className="text-sm text-muted-foreground">Бесплатно. Санкт-Петербург, Невский проспект, 85. Пн-Пт: 9:00-18:00</p>
                   </div>
                 </CardContent>
               </Card>
@@ -525,7 +525,7 @@ export default function Index() {
                     <Icon name="MapPin" size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <div className="font-medium">Адрес</div>
-                      <div className="text-sm text-muted-foreground">117556, Москва, Варшавское шоссе, д. 132</div>
+                      <div className="text-sm text-muted-foreground">190000, Санкт-Петербург, Невский проспект, д. 85</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -539,7 +539,7 @@ export default function Index() {
                     <Icon name="Mail" size={20} className="text-accent mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <div className="font-medium">Email</div>
-                      <div className="text-sm text-muted-foreground">info@moldparts.ru</div>
+                      <div className="text-sm text-muted-foreground">info@moldis.ru</div>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -590,7 +590,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h4 className="font-bold mb-4">MoldParts</h4>
+              <h4 className="font-bold mb-4">Молдис</h4>
               <p className="text-sm opacity-80">Профессиональные стандартные элементы для пресс-форм</p>
             </div>
             <div>
@@ -615,13 +615,13 @@ export default function Index() {
               <h4 className="font-bold mb-4">Контакты</h4>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>+7 (495) 123-45-67</li>
-                <li>info@moldparts.ru</li>
-                <li>Москва, Варшавское ш., 132</li>
+                <li>info@moldis.ru</li>
+                <li>Санкт-Петербург, Невский пр., 85</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-80">
-            © 2024 MoldParts. Все права защищены.
+            © 2024 Молдис. Все права защищены.
           </div>
         </div>
       </footer>
